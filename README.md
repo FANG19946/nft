@@ -1,12 +1,26 @@
-# React + Vite
+# 🧬 NFT Frontend — React + R3F + Tailwind
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a modular, full-screen interactive NFT frontend built using:
+- **React** (via Vite)
+- **React Three Fiber** (Three.js for declarative 3D)
+- **Tailwind CSS** (for styling)
+- **Framer Motion** (for animations)
+- **Jotai + Leva** (for state and debugging controls)
 
-Currently, two official plugins are available:
+Designed for a stylized, immersive experience, this frontend combines 3D scenes, comic book storytelling, and a clean UI into one powerful NFT portal.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📦 Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔁 Full-screen `<Canvas>` background with overlayed HTML UI
+- 🧭 Responsive **Tailwind-based Navbar**
+- 📘 Modular **Comic Book** and **Roadmap** sections with their own 3D scenes
+- ⚡ Fast development environment with Vite
+- 🧪 Lightweight, easily testable components
+- 🧱 Ready to integrate with smart contract APIs or NFT marketplaces
+
+---
+
+## 🗂 Project Structure
+
