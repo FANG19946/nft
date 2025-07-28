@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { pageAtom, pages } from './UI'
 import Page from './Page'
 import { useTexture } from '@react-three/drei'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
+import { cameraPositionAtom } from '../lib/atoms'
 
 
 //This part was causing the could not find errors
@@ -16,6 +17,8 @@ pages.forEach((page) => {
 export default function Book({ ...props }) {
     const [page, setPage] = useAtom(pageAtom);
     const [delayedPage, setDelayedPage] = useState(page);
+    const setCameraPosition = useSetAtom(cameraPositionAtom)
+
 
     useEffect(() => {
         let timeout;
@@ -40,6 +43,9 @@ export default function Book({ ...props }) {
                     }
                 }
             })
+            // Setting Focus to Book when clicked on book
+            if (delayedPage != 0 || delayedPage != pages.length)
+                setCameraPosition([2, 0, 5])
         }
         goToPage();
         return () => {
