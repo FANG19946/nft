@@ -4,6 +4,7 @@ import { Environment } from '@react-three/drei'
 import { useThree } from '@react-three/fiber'
 import { cameraPositionAtom } from '../lib/atoms'
 import CameraRig from './CameraRig'
+import BackgroundPlane from './BackgroundPlane'
 
 
 export default function Studio() {
@@ -14,8 +15,9 @@ export default function Studio() {
 
     return (
         <group>
+            <BackgroundPlane/>
             <CameraRig/>
-            <Book position={[left, 0, 0]} />
+            <Book position={[2, 0, 0]} />
             <Environment preset="city"></Environment>
             <directionalLight
                 position={[2, 5, 2]}

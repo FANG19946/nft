@@ -2,6 +2,9 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Vector3 } from "three";
 
+
+
+
 export default function useLerpedCamera(target, lookAt = [0, 0, 0]) {
     const { camera } = useThree()
     const targetRef = useRef(new Vector3(...target))
@@ -13,18 +16,18 @@ export default function useLerpedCamera(target, lookAt = [0, 0, 0]) {
             targetRef.current.copy(newTarget)
             isAnimating.current = true
         }
-    })
+    }, [target])
     useFrame(() => {
         if (!isAnimating.current) return
 
-        camera.position.lerp(targetRef.current, 0.1)
+        camera.position.lerp(targetRef.current, 0.05)
 
         if (camera.position.distanceTo(targetRef.current) < 0.001) {
             camera.position.copy(targetRef.current)
             isAnimating.current = false
         }
-
-        camera.lookAt(...lookAt)
+        
+        
     })
 
 

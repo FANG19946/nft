@@ -17,7 +17,7 @@ pages.forEach((page) => {
 export default function Book({ ...props }) {
     const [page, setPage] = useAtom(pageAtom);
     const [delayedPage, setDelayedPage] = useState(page);
-    const setCameraPosition = useSetAtom(cameraPositionAtom)
+    
 
 
     useEffect(() => {
@@ -43,9 +43,7 @@ export default function Book({ ...props }) {
                     }
                 }
             })
-            // Setting Focus to Book when clicked on book
-            if (delayedPage != 0 || delayedPage != pages.length)
-                setCameraPosition([2, 0, 5])
+            
         }
         goToPage();
         return () => {

@@ -7,5 +7,7 @@ export default function CameraRig() {
 
   
   useLerpedCamera(target)
-  return
+
+  return <></>
+
 }

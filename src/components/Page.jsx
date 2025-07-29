@@ -1,11 +1,12 @@
 import { useCursor, useHelper, useTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import { easing } from 'maath';
 import React, { useMemo, useRef, useState } from 'react'
 import { Bone, BoxGeometry, Color, Float32BufferAttribute, MathUtils, MeshStandardMaterial, Skeleton, SkeletonHelper, SkinnedMesh, SRGBColorSpace, Uint16BufferAttribute, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { pageAtom } from './UI';
+import { cameraPositionAtom } from '../lib/atoms';
 
 // Page Constants
 const PAGE_WIDTH = 1.28;
@@ -91,6 +92,8 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
     picture.colorSpace = picture2.colorSpace = SRGBColorSpace
     const turnedAt = useRef(0);
     const lastOpened = useRef(opened)
+
+    const setCameraPosition = useSetAtom(cameraPositionAtom)
 
     const group = useRef()
     const skinnedMeshRef = useRef()
@@ -244,6 +247,8 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
                 e.stopPropagation();
                 setPage(opened ? number : number + 1)
                 setHighlighted(false)
+                // Setting Focus to Book when clicked on book
+                setCameraPosition([2, 0, 5])
 
             }}
         >
