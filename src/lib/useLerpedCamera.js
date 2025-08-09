@@ -20,7 +20,7 @@ export default function useLerpedCamera(target, lookAt = [0, 0, 0]) {
     useFrame(() => {
         if (!isAnimating.current) return
 
-        camera.position.lerp(targetRef.current, 0.05)
+        camera.position.lerp(targetRef.current, 0.1)
 
         if (camera.position.distanceTo(targetRef.current) < 0.001) {
             camera.position.copy(targetRef.current)

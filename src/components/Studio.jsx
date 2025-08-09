@@ -11,13 +11,13 @@ export default function Studio() {
 
     const PAGE_WIDTH = 1.28;
     const { viewport } = useThree()
-    const left = -viewport.width/2 + PAGE_WIDTH + 0.5
+    const left = -viewport.width/2
 
     return (
         <group>
             <BackgroundPlane/>
             <CameraRig/>
-            <Book position={[2, 0, 0]} />
+            <Book position={[left, 0, 0]} />
             <Environment preset="city"></Environment>
             <directionalLight
                 position={[2, 5, 2]}

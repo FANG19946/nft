@@ -1,5 +1,5 @@
 import { useCursor, useHelper, useTexture } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useAtom, useSetAtom } from 'jotai';
 import { easing } from 'maath';
 import React, { useMemo, useRef, useState } from 'react'
@@ -94,6 +94,8 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
     const lastOpened = useRef(opened)
 
     const setCameraPosition = useSetAtom(cameraPositionAtom)
+    const { viewport } = useThree()
+    const left = -viewport.width / 2
 
     const group = useRef()
     const skinnedMeshRef = useRef()
@@ -248,7 +250,7 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
                 setPage(opened ? number : number + 1)
                 setHighlighted(false)
                 // Setting Focus to Book when clicked on book
-                setCameraPosition([2, 0, 5])
+                setCameraPosition([left, 0, 4])
 
             }}
         >
