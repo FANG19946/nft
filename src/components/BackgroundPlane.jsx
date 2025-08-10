@@ -13,8 +13,8 @@ export default function BackgroundPlane() {
   // Memoize size to avoid recalculating every frame
   const size = useMemo(() => {
     return {
-      width: viewport.width * 2,
-      height: viewport.height * 2,
+      width: 100,
+      height: 100,
     }
   }, [viewport])
 
@@ -30,7 +30,7 @@ export default function BackgroundPlane() {
       } // Set to default position and close book
 
     >
-      <meshBasicMaterial transparent opacity={0} />
+      <meshBasicMaterial transparent opacity={1} />
     </Plane>
   )
 }
