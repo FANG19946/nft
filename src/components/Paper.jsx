@@ -21,8 +21,6 @@ import { applyFlipDeformation } from '../lib/applyFlipDeformation';
 
 
 // Page Constants
-const PAGE_WIDTH = 1.28;
-const PAGE_HEIGHT = 1.81;
 const PAGE_DEPTH = 0.003;
 const PAGE_SEGMENTS = 30;
 const whiteColor = new Color('white');
@@ -32,7 +30,7 @@ const pageMaterials = new Array(4).fill(
   new MeshStandardMaterial({ color: whiteColor })
 );
 
-export default function Roadmap({ front, back, children, ...props }) {
+export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, ...props }) {
 
   useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom);
   const meshRef = useRef();

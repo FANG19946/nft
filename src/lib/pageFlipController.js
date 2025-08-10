@@ -12,8 +12,8 @@ export function handleClick() {
 
     store.set(flipDirectionAtom, direction);
     store.set(flippingAtom, true);
-    console.log('Starting flip. Direction:', direction, 'Angle:', angle);
+    // console.log('Starting flip. Direction:', direction, 'Angle:', angle);
   } else {
-    console.log('Flip already in progress');
+    // console.log('Flip already in progress');
   }
 }

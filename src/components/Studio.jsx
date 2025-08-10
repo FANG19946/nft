@@ -5,8 +5,8 @@ import { useThree } from '@react-three/fiber'
 import { cameraPositionAtom } from '../lib/atoms'
 import CameraRig from './CameraRig'
 import BackgroundPlane from './BackgroundPlane'
-import Roadmap from './Roadmap'
 import StickyNote from './StickyNote'
+import Paper from './Paper'
 
 
 export default function Studio() {
@@ -20,7 +20,7 @@ export default function Studio() {
             <BackgroundPlane />
             <CameraRig />
             <Book position={[left, 0, 0]} />
-            <Roadmap front="Roadmap" back="Empty Page" />
+            <Paper front="Roadmap" back="Empty Page" />
             <StickyNote position={[0.3, -0.2, 0]} />
             <Environment preset="city"></Environment>
             <directionalLight
