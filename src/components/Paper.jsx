@@ -127,13 +127,13 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       material={mesh.material}
       onClick={(e) => {
         e.stopPropagation()
-        console.log(getCameraPosition)
-        if ([3, 0, 5].every((val, i) => val === getCameraPosition[i])) {
+        
+        if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
           handleClick()
         }
         // Setting Focus to Paper when clicked on it
-        setCameraPosition([3, 0, 5])
-        console.log(cameraPositionAtom);
+        setCameraPosition([-1, 0, 5])
+        
 
 
       }}

@@ -250,7 +250,8 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
                 setPage(opened ? number : number + 1)
                 setHighlighted(false)
                 // Setting Focus to Book when clicked on book
-                setCameraPosition([left, 0, 3])
+                setCameraPosition([left, 0, 5])
+                
 
             }}
         >

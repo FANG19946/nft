@@ -48,7 +48,7 @@ export default function BackgroundPlane() {
       } // Set to default position and close book
 
     >
-      <meshBasicMaterial transparent opacity={1} />
+      <meshBasicMaterial transparent opacity={0} />
     </Plane>
   )
 }

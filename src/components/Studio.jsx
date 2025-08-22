@@ -20,10 +20,10 @@ export default function Studio() {
             <BackgroundPlane />
             <CameraRig />
             <Book position={[left, 0, 0]} />
-            <Paper front="Roadmap" back="Empty Page" position={[3,0,0]}/>
+            <Paper front="Roadmap" back="Empty Page" position={[-1,0,0]}/>
             {/* <Paper front="Roadmap" back="Empty Page" position={[0,1,0]}/> */}
 
-            <StickyNote position={[0.3+3, -0.2, 0]} />
+            <StickyNote position={[0.3-1, -0.2, 0]} />
             <Environment preset="city"></Environment>
             <directionalLight
                 position={[2, 5, 2]}

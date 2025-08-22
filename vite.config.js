@@ -11,7 +11,7 @@ export default defineConfig({
     server: {
     host: true, // allow external access
     allowedHosts: [
-      '22de5a98d6a6.ngrok-free.app' // add your ngrok domain here
+      '9810ee9c0e2d.ngrok-free.app' // add your ngrok domain here
     ]
   }
 })
