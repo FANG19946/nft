@@ -13,11 +13,13 @@ import {
   flipAngleAtom,
   flippingAtom,
   flipDirectionAtom,
+  cameraPositionAtom,
 } from '../lib/atoms';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { pageBasePositionsAtom } from '../lib/atoms';
 import { useFrame } from '@react-three/fiber';
 import { applyFlipDeformation } from '../lib/applyFlipDeformation';
+import { log } from 'three/tsl';
 
 
 // Page Constants
@@ -36,6 +38,10 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
   const meshRef = useRef();
   const basePositions = useRef(null);
   const flipAngle = useAtomValue(flipAngleAtom);
+
+  const setCameraPosition = useSetAtom(cameraPositionAtom)
+  const getCameraPosition = useAtomValue(cameraPositionAtom)
+
 
   const setPageBasePositions = useSetAtom(pageBasePositionsAtom);
 
@@ -119,7 +125,18 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       ref={meshRef}
       geometry={mesh.geometry}
       material={mesh.material}
-      onClick={handleClick}
+      onClick={(e) => {
+        e.stopPropagation()
+        console.log(getCameraPosition)
+        if ([3, 0, 5].every((val, i) => val === getCameraPosition[i])) {
+          handleClick()
+        }
+        // Setting Focus to Paper when clicked on it
+        setCameraPosition([3, 0, 5])
+        console.log(cameraPositionAtom);
+
+
+      }}
       onPointerOver={() => (document.body.style.cursor = 'pointer')}
       onPointerOut={() => (document.body.style.cursor = 'auto')}
       castShadow

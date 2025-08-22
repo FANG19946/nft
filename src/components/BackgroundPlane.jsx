@@ -37,6 +37,7 @@ export default function BackgroundPlane() {
 
         // Roadmap
         // If not flipping and currently flipped
+        // BUG FIX: If in between flip and plane clicked return to base 
         if (!flipping && angle !== 0) {
           const direction = angle >= Math.PI ? -1 : 1
           setFlipDirection(direction)
