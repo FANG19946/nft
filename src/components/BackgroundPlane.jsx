@@ -1,6 +1,6 @@
 import { useThree } from '@react-three/fiber'
-import { useAtomValue, useSetAtom } from 'jotai'
-import {  flipAngleAtom, flipDirectionAtom, flippingAtom, inFocusAtom } from '../lib/atoms'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
+import { flipAngleAtom, flipDirectionAtom, flippingAtom, inFocusAtom } from '../lib/atoms'
 import { useMemo } from 'react'
 import { Plane } from '@react-three/drei'
 import { pageAtom } from './UI'
@@ -9,7 +9,7 @@ export default function BackgroundPlane() {
   const { viewport } = useThree()
   // Camera Positioning
   // const setCameraPos = useSetAtom(cameraPositionAtom)
-  const setFocus = useSetAtom(inFocusAtom)
+  const [inFocus, setFocus] = useAtom(inFocusAtom)
   const setPage = useSetAtom(pageAtom)
 
   // Roadmap
@@ -29,7 +29,7 @@ export default function BackgroundPlane() {
   return (
     <Plane
       args={[size.width, size.height]}
-      position={[0, 0, -10]} // Behind everything
+      position={inFocus ? [0, 0, 0.5] : [0, 0, -10]} // Behind everything
       onClick={() => {
 
         // Camera positioning
@@ -50,7 +50,7 @@ export default function BackgroundPlane() {
       } // Set to default position and close book
 
     >
-      <meshBasicMaterial transparent opacity={0} />
+      <meshBasicMaterial color="black" transparent opacity={inFocus ? 0.5 : 0} />
     </Plane>
   )
 }
