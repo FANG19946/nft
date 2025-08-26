@@ -6,7 +6,8 @@ import React, { useMemo, useRef, useState } from 'react'
 import { Bone, BoxGeometry, Color, Float32BufferAttribute, MathUtils, MeshStandardMaterial, Skeleton, SkeletonHelper, SkinnedMesh, SRGBColorSpace, Uint16BufferAttribute, Vector3 } from 'three';
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { pageAtom } from './UI';
-import { cameraPositionAtom } from '../lib/atoms';
+import { inFocusAtom } from '../lib/atoms';
+// import { cameraPositionAtom } from '../lib/atoms';
 
 // Page Constants
 const PAGE_WIDTH = 1.28;
@@ -93,9 +94,16 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
     const turnedAt = useRef(0);
     const lastOpened = useRef(opened)
 
-    const setCameraPosition = useSetAtom(cameraPositionAtom)
+    // const setCameraPosition = useSetAtom(cameraPositionAtom)
+
+
     const { viewport } = useThree()
     const left = -viewport.width / 2
+
+    // Add state of position of Pages
+    const [inFocus, setInFocus] = useAtom(inFocusAtom)
+
+
 
     const group = useRef()
     const skinnedMeshRef = useRef()
@@ -250,14 +258,19 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
                 setPage(opened ? number : number + 1)
                 setHighlighted(false)
                 // Setting Focus to Book when clicked on book
-                setCameraPosition([left, 0, 5])
-                
+                // setCameraPosition([left, 0, 5])
+                // Manually changing book position
+                // setPosition([0, 0, 0])
+                setInFocus(true)
+
 
             }}
         >
             <primitive
                 object={manualSkinnedMesh}
                 ref={skinnedMeshRef}
+                // position-x={0}
+                // position-y={position[1]}
                 position-z={-number * PAGE_DEPTH + page * PAGE_DEPTH} />
 
         </group>

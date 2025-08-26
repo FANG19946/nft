@@ -1,8 +1,5 @@
 import { atom } from 'jotai'
 
-// CAMERA SETUP
-// Global camera position target for the scene
-export const cameraPositionAtom = atom([0, 0, 5])
 
 
 
@@ -19,3 +16,6 @@ export const flipDirectionAtom = atom(1);
 // Page and Sticky Note Base Position atoms
 export const pageBasePositionsAtom = atom(null);
 export const stickyNoteBasePositionsAtom = atom(null);
+// Focus Atom
+export const inFocusAtom = atom(false);
+

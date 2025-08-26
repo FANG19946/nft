@@ -13,7 +13,7 @@ import {
   flipAngleAtom,
   flippingAtom,
   flipDirectionAtom,
-  cameraPositionAtom,
+  // cameraPositionAtom,
 } from '../lib/atoms';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { pageBasePositionsAtom } from '../lib/atoms';
@@ -39,8 +39,8 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
   const basePositions = useRef(null);
   const flipAngle = useAtomValue(flipAngleAtom);
 
-  const setCameraPosition = useSetAtom(cameraPositionAtom)
-  const getCameraPosition = useAtomValue(cameraPositionAtom)
+  // const setCameraPosition = useSetAtom(cameraPositionAtom)
+  // const getCameraPosition = useAtomValue(cameraPositionAtom)
 
 
   const setPageBasePositions = useSetAtom(pageBasePositionsAtom);
@@ -128,11 +128,11 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       onClick={(e) => {
         e.stopPropagation()
         
-        if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
+        // if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
           handleClick()
-        }
-        // Setting Focus to Paper when clicked on it
-        setCameraPosition([-1, 0, 5])
+        // }
+        // // Setting Focus to Paper when clicked on it
+        // setCameraPosition([-1, 0, 5])
         
 
 

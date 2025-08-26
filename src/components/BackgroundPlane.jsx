@@ -1,6 +1,6 @@
 import { useThree } from '@react-three/fiber'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { cameraPositionAtom, flipAngleAtom, flipDirectionAtom, flippingAtom } from '../lib/atoms'
+import {  flipAngleAtom, flipDirectionAtom, flippingAtom, inFocusAtom } from '../lib/atoms'
 import { useMemo } from 'react'
 import { Plane } from '@react-three/drei'
 import { pageAtom } from './UI'
@@ -8,7 +8,8 @@ import { pageAtom } from './UI'
 export default function BackgroundPlane() {
   const { viewport } = useThree()
   // Camera Positioning
-  const setCameraPos = useSetAtom(cameraPositionAtom)
+  // const setCameraPos = useSetAtom(cameraPositionAtom)
+  const setFocus = useSetAtom(inFocusAtom)
   const setPage = useSetAtom(pageAtom)
 
   // Roadmap
@@ -32,7 +33,8 @@ export default function BackgroundPlane() {
       onClick={() => {
 
         // Camera positioning
-        setCameraPos([0, 0, 5])
+        // setCameraPos([0, 0, 5])
+        setFocus(false)
         setPage(0)
 
         // Roadmap
