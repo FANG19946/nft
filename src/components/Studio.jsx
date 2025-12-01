@@ -1,3 +1,4 @@
+// Studio.jsx
 import React from 'react'
 import Book from './Book'
 import { Environment, OrbitControls } from '@react-three/drei'

@@ -1,3 +1,4 @@
+// Book.jsx
 import React, { useEffect, useRef, useState } from 'react'
 import { pageAtom, pages } from './UI'
 import Page from './Page'

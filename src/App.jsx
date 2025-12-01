@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Navbar from './components/Navbar'
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Html, OrbitControls } from '@react-three/drei'
 import { Experience } from './components/Experience'
 import Studio from './components/Studio'
 
@@ -21,13 +21,12 @@ function App() {
           camera={{ position: [0, 0, 5], fov: 45 }}
         >
           <Suspense fallback={null}>
-            
-            {/* TODO: Add your 3D content here */}
 
-            <Studio/>
+            {/* TODO: Add your 3D content here */}
+            <Studio />
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            
+
 
           </Suspense>
         </Canvas>

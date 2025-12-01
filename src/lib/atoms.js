@@ -1,3 +1,4 @@
+// atoms.js
 import { atom } from 'jotai'
 
 

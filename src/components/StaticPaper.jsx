@@ -1,3 +1,4 @@
+// StaticPaper.jsx
 import { useTexture } from '@react-three/drei';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {

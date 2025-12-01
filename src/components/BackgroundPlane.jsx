@@ -1,3 +1,4 @@
+// BackgroundPlane.jsx
 import { useThree } from '@react-three/fiber'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { flipAngleAtom, flipDirectionAtom, flippingAtom, inFocusAtom } from '../lib/atoms'
@@ -51,6 +52,10 @@ export default function BackgroundPlane() {
 
     >
       <meshBasicMaterial color="black" transparent opacity={inFocus ? 0.5 : 0} />
+      
+
+
+
     </Plane>
   )
 }

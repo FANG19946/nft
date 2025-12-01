@@ -1,3 +1,4 @@
+// Navbar.jsx
 import React, { useState, useEffect } from 'react'
 import { motion, useMotionValue, useTransform, AnimatePresence, useMotionTemplate } from 'motion/react'
 
@@ -37,7 +38,7 @@ export default function Navbar(props) {
 
 
 
-        <header className=' grid grid-cols-3 items-center p-3  text-black  sticky  z-10 top-0'>
+        <header className=' grid grid-cols-3 items-center p-3  text-black  fixed w-full  z-10 top-0'>
             <a href="#" className='w-28 justify-self-start col-start-1 relative z-20'>
                 <img src="\images\CA3.0_Logo_1.png" alt="Logo" className='relative z-20' />
             </a>
