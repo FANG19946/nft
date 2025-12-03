@@ -54,8 +54,6 @@ export default function BackgroundPlane() {
       <meshBasicMaterial color="black" transparent opacity={inFocus ? 0.5 : 0} />
       
 
-
-
     </Plane>
   )
 }

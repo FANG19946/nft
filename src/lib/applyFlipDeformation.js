@@ -9,8 +9,9 @@ export function applyFlipDeformation({
     angle,
     height,
     originY = height / 2,
-    curlStrength = 0.5,
+    curlStrength = 0.2,
     zOffset = 0,
+    width,
 }) {
 
     const store = getDefaultStore();
@@ -29,15 +30,27 @@ export function applyFlipDeformation({
 
         const rotY = relY * cos;
         const rotZ = -relY * sin;
+        const rotX = x * sin;
 
-        arr[i * 3] = x;
-        arr[i * 3 + 1] = rotY + originY;
+        const OffsetX = width * sin; // 0 -> width
+        arr[i * 3] = x + OffsetX;
+
+        // arr[i * 3 + 1] = rotY + originY;
+        if(Math.abs(cos)>0.95)
+            arr[i * 3 + 1] = y * Math.abs(cos);
+        else
+            arr[i * 3 + 1] = y * 0.95;
+
+        const OffsetZ = curl * sin;
+        arr[i * 3 + 2] = z + OffsetZ - 0.4;
+        
         // z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset + z;
         if (angle < Math.PI / 2) {
-            arr[i * 3 + 2] = Math.max(z, z + z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
+            // arr[i * 3 + 2] = Math.max(z, z + z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
+
         }
         else {
-            arr[i * 3 + 2] = Math.max(z, -z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
+            // arr[i * 3 + 2] = Math.max(z, -z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
 
         }
     }

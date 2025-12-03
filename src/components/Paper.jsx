@@ -111,6 +111,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       basePositions: basePositions.current, // 👈 FIXED REFERENCE
       angle: flipAngle,
       height: PAGE_HEIGHT,
+      width: PAGE_WIDTH,
     });
 
     meshRef.current.geometry.computeVertexNormals();
