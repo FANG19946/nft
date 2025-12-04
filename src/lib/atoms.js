@@ -5,18 +5,54 @@ import { atom } from 'jotai'
 
 
 // ROADMAP SETUP
+
+// Atoms to be used per instance of Paper.jsx
+// Global map of all ids -> atoms
+
 // Angle in radians from 0 (closed) to Math.PI (fully flipped)
-export const flipAngleAtom = atom(0);
+const flipAngleAtoms = {}
+
+export const flipAngleFamily = (paperId) => {
+  if (!flipAngleAtoms[paperId]) flipAngleAtoms[paperId] = atom(0)
+  return flipAngleAtoms[paperId]
+}
 
 // Is a flip currently in progress?
-export const flippingAtom = atom(false);
+const flippingAtoms = {}
 
+export const flippingFamily = (paperId) => {
+  if (!flippingAtoms[paperId]) flippingAtoms[paperId] = atom(false)
+  return flippingAtoms[paperId]
+}
 // Direction of flip: 1 for opening, -1 for closing
-export const flipDirectionAtom = atom(1);
+const flipDirectionAtoms = {}
 
-// Page and Sticky Note Base Position atoms
-export const pageBasePositionsAtom = atom(null);
-export const stickyNoteBasePositionsAtom = atom(null);
+export const flipDirectionFamily = (paperId) => {
+  if (!flipDirectionAtoms[paperId]) flipDirectionAtoms[paperId] = atom(1)
+  return flipDirectionAtoms[paperId]
+}
+
+// Page Base Position atom
+const pageBasePositionsAtoms = {}
+
+export const pageBasePositionsFamily = (paperId) => {
+  if (!pageBasePositionsAtoms[paperId]) {
+    pageBasePositionsAtoms[paperId] = atom(null)
+  }
+  return pageBasePositionsAtoms[paperId]
+}
+
+
+// Global Atoms
 // Focus Atom
 export const inFocusAtom = atom(false);
 
+// Sticky Note Base Position atom
+export const stickyNoteBasePositionsAtom = atom(null);
+
+export const debugFlipAtoms = () => {
+  console.log('flipAngleAtoms:', flipAngleAtoms);
+  console.log('flippingAtoms:', flippingAtoms);
+  console.log('flipDirectionAtoms:', flipDirectionAtoms);
+//   console.log('pageBasePositionsAtoms:', pageBasePositionsAtoms);
+}

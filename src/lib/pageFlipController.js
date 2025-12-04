@@ -1,10 +1,10 @@
 // pageFlipController.js
 import { getDefaultStore } from 'jotai';
-import { flipAngleAtom, flippingAtom, flipDirectionAtom } from './atoms';
+// import { flipAngleAtom, flippingAtom, flipDirectionAtom } from './atoms';
 
 const store = getDefaultStore();
 
-export function handleClick() {
+export function handleClick( flipAngleAtom, flippingAtom, flipDirectionAtom, store ) {
   const flipping = store.get(flippingAtom);
   const angle = store.get(flipAngleAtom);
 

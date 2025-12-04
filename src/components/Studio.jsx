@@ -6,7 +6,7 @@ import { useThree } from '@react-three/fiber'
 // import { cameraPositionAtom } from '../lib/atoms'
 // import CameraRig from './CameraRig'
 import BackgroundPlane from './BackgroundPlane'
-import StickyNote from './StickyNote'
+// import StickyNote from './StickyNote'
 import Paper from './Paper'
 import { inFocusAtom } from '../lib/atoms'
 import { useAtom } from 'jotai'
@@ -28,7 +28,7 @@ export default function Studio() {
                 position={inFocus ? [0, 0, 1] : [left, 0, 0]}
                  />
             <Paper front="Roadmap" back="Empty Page" position={[-1, 0, 0]} />
-            <Paper front="Empty Page" back="Empty Page" position={[1, 0, -0.2]} />
+            <Paper front="Sticky note" back="Empty Page" position={[-1, 0, -0.2]} />
 
             {/* <Paper front="Roadmap" back="Empty Page" position={[0,1,0]}/> */}
 

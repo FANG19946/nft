@@ -1,7 +1,7 @@
 // src/lib/applyFlipDeformation.js
 import { MathUtils } from 'three';
 import { getDefaultStore } from 'jotai';
-import { flipDirectionAtom } from './atoms'
+// import { flipDirectionAtom } from './atoms'
 
 export function applyFlipDeformation({
     positionAttr,
@@ -14,8 +14,8 @@ export function applyFlipDeformation({
     width,
 }) {
 
-    const store = getDefaultStore();
-    const direction = store.get(flipDirectionAtom);
+    // const store = getDefaultStore();
+    // const direction = store.get(flipDirectionAtom);
     const arr = positionAttr.array;
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
@@ -36,14 +36,29 @@ export function applyFlipDeformation({
         arr[i * 3] = x + OffsetX;
 
         // arr[i * 3 + 1] = rotY + originY;
-        if(Math.abs(cos)>0.95)
+        if (Math.abs(cos) > 0.95)
             arr[i * 3 + 1] = y * Math.abs(cos);
         else
             arr[i * 3 + 1] = y * 0.95;
 
         const OffsetZ = curl * sin;
-        arr[i * 3 + 2] = z + OffsetZ - 0.4;
-        
+
+        const startAngle = 80 * Math.PI / 180; 
+        const endAngle = 100 * Math.PI / 180;  
+        // const zShift = -0.4 * Math.sin((angle / Math.PI) * (Math.PI / 2));
+        let zShift = 0
+        if (angle >= startAngle && angle <= endAngle) {
+            const t = (angle - startAngle) / (endAngle - startAngle); // 0 → 1
+            zShift = -0.4 * t; // smoothly goes from 0 → -0.4
+        } else if (angle > endAngle) {
+            zShift = -0.4; // clamp after end
+        }
+        arr[i * 3 + 2] = z + OffsetZ + zShift;
+
+
+
+
+
         // z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset + z;
         if (angle < Math.PI / 2) {
             // arr[i * 3 + 2] = Math.max(z, z + z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)

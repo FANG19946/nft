@@ -1,6 +1,6 @@
 // Paper.jsx
 import { useTexture } from '@react-three/drei';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   BoxGeometry,
   Color,
@@ -10,17 +10,12 @@ import {
 } from 'three';
 import { handleClick } from '../lib/pageFlipController';
 import { useFlipAnimation } from '../lib/useFlipAnimation';
-import {
-  flipAngleAtom,
-  flippingAtom,
-  flipDirectionAtom,
-  // cameraPositionAtom,
-} from '../lib/atoms';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { pageBasePositionsAtom } from '../lib/atoms';
+import { flipAngleFamily, flippingFamily, flipDirectionFamily, pageBasePositionsFamily } from '../lib/atoms';
+import { getDefaultStore, useAtomValue, useSetAtom } from 'jotai';
 import { useFrame } from '@react-three/fiber';
 import { applyFlipDeformation } from '../lib/applyFlipDeformation';
 import { log } from 'three/tsl';
+import { debugFlipAtoms } from '../lib/atoms';
 
 
 // Page Constants
@@ -28,12 +23,28 @@ const PAGE_DEPTH = 0.003;
 const PAGE_SEGMENTS = 30;
 const whiteColor = new Color('white');
 
+const store = getDefaultStore();
 
 const pageMaterials = new Array(4).fill(
   new MeshStandardMaterial({ color: whiteColor })
 );
 
 export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, ...props }) {
+
+  // Unique ID per instance
+  const paperId = useId(); // unique per Paper instance
+
+  const flipAngleAtom = flipAngleFamily(paperId);
+  const flippingAtom = flippingFamily(paperId);
+  const flipDirectionAtom = flipDirectionFamily(paperId);
+  const pageBasePositionsAtom = pageBasePositionsFamily(paperId);
+
+
+
+  // useEffect(() => {
+  //   debugFlipAtoms(); // prints all atoms created so far
+  // }, []);
+
 
   useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom);
   const meshRef = useRef();
@@ -129,13 +140,14 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       material={mesh.material}
       onClick={(e) => {
         e.stopPropagation()
-        
+
         // if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
-          handleClick()
+        handleClick(flipAngleAtom, flippingAtom, flipDirectionAtom, store);
+
         // }
         // // Setting Focus to Paper when clicked on it
         // setCameraPosition([-1, 0, 5])
-        
+
 
 
       }}
