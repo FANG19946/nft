@@ -31,8 +31,8 @@ export function applyFlipDeformation({
 
 
 
-        // normalize x from right → left (1 → 0)
-        const xNorm = 1 - (x + width / 2) / width;
+        // normalize x from right → left (1 → 0) with a cosine curve instead of linear
+        const xNorm = Math.cos(((x + width / 2) / width)*Math.PI/2);
 
         // determine base scale from angle
         const angleScale = Math.abs(cos) > 0.95 ? Math.abs(cos) : 0.95;
