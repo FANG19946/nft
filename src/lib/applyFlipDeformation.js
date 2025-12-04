@@ -1,7 +1,5 @@
 // src/lib/applyFlipDeformation.js
 import { MathUtils } from 'three';
-import { getDefaultStore } from 'jotai';
-// import { flipDirectionAtom } from './atoms'
 
 export function applyFlipDeformation({
     positionAttr,
@@ -28,23 +26,27 @@ export function applyFlipDeformation({
         const relY = y - originY;
         const curl = curlStrength * Math.sin((relY / height) * Math.PI);
 
-        const rotY = relY * cos;
-        const rotZ = -relY * sin;
-        const rotX = x * sin;
-
-        const OffsetX = width * sin; // 0 -> width
+        const OffsetX = width * sin; // 0 -> width -> 0
         arr[i * 3] = x + OffsetX;
 
-        // arr[i * 3 + 1] = rotY + originY;
-        if (Math.abs(cos) > 0.95)
-            arr[i * 3 + 1] = y * Math.abs(cos);
-        else
-            arr[i * 3 + 1] = y * 0.95;
+
+
+        // normalize x from right → left (1 → 0)
+        const xNorm = 1 - (x + width / 2) / width;
+
+        // determine base scale from angle
+        const angleScale = Math.abs(cos) > 0.95 ? Math.abs(cos) : 0.95;
+
+        // final y scale interpolates from left to right
+        const yScale = angleScale + xNorm * (1 - angleScale);
+
+        arr[i * 3 + 1] = y * yScale;
+
 
         const OffsetZ = curl * sin;
 
-        const startAngle = 80 * Math.PI / 180; 
-        const endAngle = 100 * Math.PI / 180;  
+        const startAngle = 70 * Math.PI / 180;
+        const endAngle = 110 * Math.PI / 180;
         // const zShift = -0.4 * Math.sin((angle / Math.PI) * (Math.PI / 2));
         let zShift = 0
         if (angle >= startAngle && angle <= endAngle) {
@@ -53,21 +55,8 @@ export function applyFlipDeformation({
         } else if (angle > endAngle) {
             zShift = -0.4; // clamp after end
         }
-        arr[i * 3 + 2] = z + OffsetZ + zShift;
+        arr[i * 3 + 2] = z + OffsetZ * (1 - xNorm) + zShift;
 
-
-
-
-
-        // z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset + z;
-        if (angle < Math.PI / 2) {
-            // arr[i * 3 + 2] = Math.max(z, z + z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
-
-        }
-        else {
-            // arr[i * 3 + 2] = Math.max(z, -z - curl * MathUtils.clamp(angle / Math.PI, 0, 1) + rotZ + zOffset)
-
-        }
     }
 
     positionAttr.needsUpdate = true;
