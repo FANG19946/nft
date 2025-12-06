@@ -10,6 +10,7 @@ import BackgroundPlane from './BackgroundPlane'
 import Paper from './Paper'
 import { inFocusAtom } from '../lib/atoms'
 import { useAtom } from 'jotai'
+import PaperStack from './PaperStack'
 
 
 export default function Studio() {
@@ -18,6 +19,16 @@ export default function Studio() {
     const { viewport } = useThree()
     const left = -viewport.width / 2
     const [inFocus, setInFocus] = useAtom(inFocusAtom)
+    const pages = [
+        {
+            front: "Roadmap",
+            back: "Empty Page",
+        },
+        {
+            front: "Sticky note",
+            back: "Empty Page",
+        }
+    ];
 
 
     return (
@@ -26,11 +37,14 @@ export default function Studio() {
             {/* <CameraRig /> */}
             <Book
                 position={inFocus ? [0, 0, 1] : [left, 0, 0]}
-                 />
-            <Paper front="Roadmap" back="Empty Page" position={[-1, 0, 0]} />
-            <Paper front="Sticky note" back="Empty Page" position={[-1, 0, -0.2]} />
+            />
+            {/* <Paper front="Roadmap" back="Empty Page" position={[-1, 0, 0]} />
+            <Paper front="Sticky note" back="Empty Page" position={[-1, 0, -0.2]} /> */}
 
             {/* <Paper front="Roadmap" back="Empty Page" position={[0,1,0]}/> */}
+            <PaperStack pages={pages} />
+            <PaperStack pages={pages} position={[1,2,3]} />
+
 
             {/* <StickyNote position={[0.3 - 1, -0.2, 0]} /> */}
             <Environment preset="city"></Environment>
@@ -42,6 +56,7 @@ export default function Studio() {
                 shadow-mapSize-height={2048}
                 shadow-bias={-0.0001}
             />
+             <OrbitControls enablePan={true} enableZoom={true} />
 
 
         </group>

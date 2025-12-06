@@ -4,6 +4,7 @@ import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   BoxGeometry,
   Color,
+  MathUtils,
   Mesh,
   MeshStandardMaterial,
   SRGBColorSpace,
@@ -16,6 +17,7 @@ import { useFrame } from '@react-three/fiber';
 import { applyFlipDeformation } from '../lib/applyFlipDeformation';
 import { log } from 'three/tsl';
 import { debugFlipAtoms } from '../lib/atoms';
+import { stackShiftAnimation } from '../lib/stackShiftAnimation';
 
 
 // Page Constants
@@ -29,10 +31,10 @@ const pageMaterials = new Array(4).fill(
   new MeshStandardMaterial({ color: whiteColor })
 );
 
-export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, ...props }) {
+export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, rotationOffset = 0, index, isTop, topFlipAngle, ...props }) {
 
   // Unique ID per instance
-  const paperId = useId(); // unique per Paper instance
+  const paperId = props.pageId;
 
   const flipAngleAtom = flipAngleFamily(paperId);
   const flippingAtom = flippingFamily(paperId);
@@ -124,6 +126,15 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
     });
+    stackShiftAnimation({
+      positionAttr: meshRef.current.geometry.attributes.position,
+      basePositions: basePositions.current,
+      angle: topFlipAngle,
+      height: PAGE_HEIGHT,
+      width: PAGE_WIDTH,
+      zOffset: 0.2,          // or tweak
+    });
+
 
     meshRef.current.geometry.computeVertexNormals();
     meshRef.current.geometry.computeBoundingBox();
@@ -136,6 +147,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
   return (
     <mesh
       ref={meshRef}
+      rotation={[0, 0, MathUtils.degToRad(rotationOffset)]}
       geometry={mesh.geometry}
       material={mesh.material}
       onClick={(e) => {

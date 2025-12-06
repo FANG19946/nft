@@ -10,7 +10,7 @@ export function useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom)
   useFrame((_, delta) => {
     if (!flipping) return;
 
-    const speed = 2; // radians per second
+    const speed = 3.5; // radians per second
     const nextAngle = angle + delta * direction * speed;
 
     if (nextAngle >= Math.PI || nextAngle <= 0) {
