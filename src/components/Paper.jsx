@@ -31,7 +31,7 @@ const pageMaterials = new Array(4).fill(
   new MeshStandardMaterial({ color: whiteColor })
 );
 
-export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, rotationOffset = 0, index, isTop, topFlipAngle, ...props }) {
+export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, rotationOffset = 0, index, topPaperId, topFlipAngle, ...props }) {
 
   // Unique ID per instance
   const paperId = props.pageId;
@@ -48,7 +48,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
   // }, []);
 
 
-  useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom);
+  useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom, props.totalPapers);
   const meshRef = useRef();
   const basePositions = useRef(null);
   const flipAngle = useAtomValue(flipAngleAtom);
@@ -126,6 +126,8 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
     });
+
+
     stackShiftAnimation({
       positionAttr: meshRef.current.geometry.attributes.position,
       basePositions: basePositions.current,
@@ -133,6 +135,9 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
       zOffset: 0.2,          // or tweak
+      paperId: paperId,
+      topPaperId: topPaperId,
+      totalPapers: props.totalPapers,
     });
 
 
@@ -142,7 +147,20 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
 
   });
 
+  useEffect(() => {
+    // console.log(`[Paper ${paperId}] isTop =`, paperId === topPaperId);
+  }, [topPaperId]);
 
+  useEffect(() => {
+    if (!meshRef.current) return;
+
+    const posAttr = meshRef.current.geometry.attributes.position;
+    const base = Float32Array.from(posAttr.array);
+    basePositions.current = base;
+    setPageBasePositions(base);
+
+    // console.log(`[Paper ${paperId}] recalculated base positions due to topPaperId =`, topPaperId);
+  }, [topPaperId]); // 👈 this dependency ensures it runs whenever topPaperId changes
 
   return (
     <mesh
@@ -152,9 +170,10 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       material={mesh.material}
       onClick={(e) => {
         e.stopPropagation()
-
+        console.log('PAPER CLICK');
         // if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
         handleClick(flipAngleAtom, flippingAtom, flipDirectionAtom, store);
+        props.onStackClick()
 
         // }
         // // Setting Focus to Paper when clicked on it

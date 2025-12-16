@@ -43,7 +43,7 @@ export default function Studio() {
 
             {/* <Paper front="Roadmap" back="Empty Page" position={[0,1,0]}/> */}
             <PaperStack pages={pages} />
-            <PaperStack pages={pages} position={[1,2,3]} />
+            {/* <PaperStack pages={pages} position={[1,2,3]} /> */}
 
 
             {/* <StickyNote position={[0.3 - 1, -0.2, 0]} /> */}

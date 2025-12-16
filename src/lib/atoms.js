@@ -32,6 +32,9 @@ export const flipDirectionFamily = (paperId) => {
   return flipDirectionAtoms[paperId]
 }
 
+// TopIndexAtom
+export const topIndexAtom = atom(0);
+
 // Page Base Position atom
 const pageBasePositionsAtoms = {}
 

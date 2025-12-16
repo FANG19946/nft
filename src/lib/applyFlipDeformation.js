@@ -51,10 +51,11 @@ export function applyFlipDeformation({
         let zShift = 0
         if (angle >= startAngle && angle <= endAngle) {
             const t = (angle - startAngle) / (endAngle - startAngle); // 0 → 1
-            zShift = -0.4 * t; // smoothly goes from 0 → -0.4
+            zShift = -0.2 * t; // smoothly goes from 0 → -0.4
         } else if (angle > endAngle) {
-            zShift = -0.4; // clamp after end
+            zShift = -0.2; // clamp after end
         }
+        if(angle!=0)
         arr[i * 3 + 2] = z + OffsetZ * (1 - xNorm) + zShift;
 
     }
