@@ -5,7 +5,7 @@ import Page from './Page'
 import { useTexture } from '@react-three/drei'
 import { useAtom, useSetAtom } from 'jotai'
 import { useThree } from '@react-three/fiber'
-// import { cameraPositionAtom } from '../lib/atoms'
+
 
 
 //This part was causing the could not find errors
@@ -24,7 +24,7 @@ export default function Book({ ...props }) {
     const left = -viewport.width / 2
 
     const groupRef = useRef();
-    // const [position, setPosition] = useState(initialPosition)
+    
 
 
 

@@ -18,13 +18,11 @@ export function useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom,
 
     if (nextAngle >= Math.PI || nextAngle <= 0) {
       setFlipping(false);
-      // setAngle(Math.max(0, Math.min(Math.PI, nextAngle)));
       setAngle(0)
       setTopIndex((i) => (i + 1) % totalPapers);
     } else {
       setAngle(nextAngle);
     }
-    // console.log('flipAngle (radians):', angle.toFixed(1));
 
   });
   

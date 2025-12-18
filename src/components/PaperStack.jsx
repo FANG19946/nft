@@ -21,7 +21,7 @@ export default function PaperStack({ pages = [], position = [0, 0, 0] }) {
         return pages.map((p, i) => ({
             ...p,
             id: `paper-${i}`,
-            rotationOffset: (Math.random() - 0.5) * 2 * ROTATION_RANGE, // ±5 deg
+            rotationOffset: (Math.random() - 0.5) * 2 * ROTATION_RANGE, // ±5 deg random orientations
         }));
     }, [pages]);
 
@@ -39,13 +39,6 @@ export default function PaperStack({ pages = [], position = [0, 0, 0] }) {
         console.log('STACK CLICK, new top:', nextTopId);
         setTopPaperId(nextTopId);
     };
-
-
-    React.useEffect(() => {
-        // console.log('Current paper stack:', papers.map(p => p.id));
-    }, [papers]);
-
-
 
     return (
         <group position={position}>

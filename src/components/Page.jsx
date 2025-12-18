@@ -8,7 +8,7 @@ import { Bone, BoxGeometry, Color, Float32BufferAttribute, MathUtils, MeshStanda
 import { degToRad } from 'three/src/math/MathUtils.js';
 import { pageAtom } from './UI';
 import { inFocusAtom } from '../lib/atoms';
-// import { cameraPositionAtom } from '../lib/atoms';
+
 
 // Page Constants
 const PAGE_WIDTH = 1.28;
@@ -158,7 +158,7 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
         return mesh;
     }, [])
 
-    // useHelper(skinnedMeshRef, SkeletonHelper, "red")
+    
     useFrame((_, delta) => {
         if (!skinnedMeshRef.current) return;
 
@@ -270,8 +270,6 @@ export default function Page({ number, front, back, page, opened, bookClosed, ..
             <primitive
                 object={manualSkinnedMesh}
                 ref={skinnedMeshRef}
-                // position-x={0}
-                // position-y={position[1]}
                 position-z={-number * PAGE_DEPTH + page * PAGE_DEPTH} />
 
         </group>

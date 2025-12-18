@@ -1,7 +1,6 @@
 // BackgroundPlane.jsx
 import { useThree } from '@react-three/fiber'
 import { useAtom, useAtomValue, useSetAtom } from 'jotai'
-// import { flipAngleAtom, flipDirectionAtom, flippingAtom, inFocusAtom } from '../lib/atoms'
 import { inFocusAtom } from '../lib/atoms'
 import { useMemo } from 'react'
 import { Plane } from '@react-three/drei'
@@ -9,8 +8,6 @@ import { pageAtom } from './UI'
 
 export default function BackgroundPlane() {
   const { viewport } = useThree()
-  // Camera Positioning
-  // const setCameraPos = useSetAtom(cameraPositionAtom)
   const [inFocus, setFocus] = useAtom(inFocusAtom)
   const setPage = useSetAtom(pageAtom)
 
@@ -34,8 +31,6 @@ export default function BackgroundPlane() {
       position={inFocus ? [0, 0, 0.5] : [0, 0, -10]} // Behind everything
       onClick={() => {
 
-        // Camera positioning
-        // setCameraPos([0, 0, 5])
         setFocus(false)
         setPage(0)
 

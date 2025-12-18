@@ -41,10 +41,6 @@ export function stackShiftAnimation({
             arr[i * 3 + 2] = z + zShift;
         }
 
-
-
-        // arr[i * 3 + 2] = z + zShift;
-
     }
 
     positionAttr.needsUpdate = true;

@@ -13,8 +13,7 @@ export function applyFlipDeformation({
     totalPapers
 }) {
 
-    // const store = getDefaultStore();
-    // const direction = store.get(flipDirectionAtom);
+
     const arr = positionAttr.array;
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
@@ -48,11 +47,11 @@ export function applyFlipDeformation({
 
         const startAngle = 70 * Math.PI / 180;
         const endAngle = 110 * Math.PI / 180;
-        // const zShift = -0.4 * Math.sin((angle / Math.PI) * (Math.PI / 2));
+    
         let zShift = 0
         if (angle >= startAngle && angle <= endAngle) {
             const t = (angle - startAngle) / (endAngle - startAngle); // 0 → 1
-            zShift = -0.2 * t * (totalPapers - 1); // smoothly goes from 0 → -0.4
+            zShift = -0.2 * t * (totalPapers - 1); // smoothly goes from 0 → -0.2 * (totalPaper - 1)
         } else if (angle > endAngle) {
             zShift = -0.2* (totalPapers - 1); // clamp after end
         }

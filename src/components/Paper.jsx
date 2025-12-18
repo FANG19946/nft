@@ -41,21 +41,10 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
   const flipDirectionAtom = flipDirectionFamily(paperId);
   const pageBasePositionsAtom = pageBasePositionsFamily(paperId);
 
-
-
-  // useEffect(() => {
-  //   debugFlipAtoms(); // prints all atoms created so far
-  // }, []);
-
-
   useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom, props.totalPapers);
   const meshRef = useRef();
   const basePositions = useRef(null);
   const flipAngle = useAtomValue(flipAngleAtom);
-
-  // const setCameraPosition = useSetAtom(cameraPositionAtom)
-  // const getCameraPosition = useAtomValue(cameraPositionAtom)
-
 
   const setPageBasePositions = useSetAtom(pageBasePositionsAtom);
 
@@ -68,12 +57,12 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
     setPageBasePositions(base);
 
     // Optional: Logging for inspection
-    for (let i = 0; i < posAttr.count; i++) {
-      const x = -basePositions[i * 3] + PAGE_WIDTH / 2;
-      const y = -basePositions[i * 3 + 1] + PAGE_HEIGHT / 2;
-      const z = basePositions[i * 3 + 2];
+    // for (let i = 0; i < posAttr.count; i++) {
+    //   const x = -basePositions[i * 3] + PAGE_WIDTH / 2;
+    //   const y = -basePositions[i * 3 + 1] + PAGE_HEIGHT / 2;
+    //   const z = basePositions[i * 3 + 2];
       // console.log(`i: ${i}, x: ${x.toFixed(3)}, y: ${y.toFixed(3)}, z: ${z.toFixed(3)}`);
-    }
+    // }
   }, []);
 
 
@@ -121,7 +110,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
 
     applyFlipDeformation({
       positionAttr: meshRef.current.geometry.attributes.position,
-      basePositions: basePositions.current, // 👈 FIXED REFERENCE
+      basePositions: basePositions.current, //  FIXED REFERENCE
       angle: flipAngle,
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
@@ -135,7 +124,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       angle: topFlipAngle,
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
-      zOffset: 0.2,          // or tweak
+      zOffset: 0.2,          
       paperId: paperId,
       topPaperId: topPaperId,
       totalPapers: props.totalPapers,
@@ -148,9 +137,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
 
   });
 
-  useEffect(() => {
-    // console.log(`[Paper ${paperId}] isTop =`, paperId === topPaperId);
-  }, [topPaperId]);
+  
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -160,8 +147,8 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
     basePositions.current = base;
     setPageBasePositions(base);
 
-    // console.log(`[Paper ${paperId}] recalculated base positions due to topPaperId =`, topPaperId);
-  }, [topPaperId]); // 👈 this dependency ensures it runs whenever topPaperId changes
+    
+  }, [topPaperId]); // this dependency ensures it runs whenever topPaperId changes
 
   return (
     <mesh
@@ -170,17 +157,9 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       geometry={mesh.geometry}
       material={mesh.material}
       onClick={(e) => {
-        e.stopPropagation()
-        console.log('PAPER CLICK');
-        // if ([-1, 0, 5].every((val, i) => val === getCameraPosition[i])) {
+        e.stopPropagation()        
         handleClick(flipAngleAtom, flippingAtom, flipDirectionAtom, store);
         props.onStackClick()
-
-        // }
-        // // Setting Focus to Paper when clicked on it
-        // setCameraPosition([-1, 0, 5])
-
-
 
       }}
       onPointerOver={() => (document.body.style.cursor = 'pointer')}
