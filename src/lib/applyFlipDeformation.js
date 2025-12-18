@@ -10,6 +10,7 @@ export function applyFlipDeformation({
     curlStrength = 0.2,
     zOffset = 0,
     width,
+    totalPapers
 }) {
 
     // const store = getDefaultStore();
@@ -32,7 +33,7 @@ export function applyFlipDeformation({
 
 
         // normalize x from right → left (1 → 0) with a cosine curve instead of linear
-        const xNorm = Math.cos(((x + width / 2) / width)*Math.PI/2);
+        const xNorm = Math.cos(((x + width / 2) / width) * Math.PI / 2);
 
         // determine base scale from angle
         const angleScale = Math.abs(cos) > 0.95 ? Math.abs(cos) : 0.95;
@@ -51,12 +52,12 @@ export function applyFlipDeformation({
         let zShift = 0
         if (angle >= startAngle && angle <= endAngle) {
             const t = (angle - startAngle) / (endAngle - startAngle); // 0 → 1
-            zShift = -0.2 * t; // smoothly goes from 0 → -0.4
+            zShift = -0.2 * t * (totalPapers - 1); // smoothly goes from 0 → -0.4
         } else if (angle > endAngle) {
-            zShift = -0.2; // clamp after end
+            zShift = -0.2* (totalPapers - 1); // clamp after end
         }
-        if(angle!=0)
-        arr[i * 3 + 2] = z + OffsetZ * (1 - xNorm) + zShift;
+        if (angle != 0)
+            arr[i * 3 + 2] = z + OffsetZ * (1 - xNorm) + zShift;
 
     }
 

@@ -27,7 +27,11 @@ export default function Studio() {
         {
             front: "Sticky note",
             back: "Empty Page",
-        }
+        },
+        {
+            front: "Roadmap",
+            back: "Empty Page",
+        },
     ];
 
 

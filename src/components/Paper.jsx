@@ -125,6 +125,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       angle: flipAngle,
       height: PAGE_HEIGHT,
       width: PAGE_WIDTH,
+      totalPapers: props.totalPapers,
     });
 
 
