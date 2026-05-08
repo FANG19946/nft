@@ -1,13 +1,17 @@
 // userFlipAnimation.js
 import { useAtom } from 'jotai';
 import { useFrame } from '@react-three/fiber';
-import { topIndexAtom } from './atoms';
+import { stackInteractionLockedAtom, topIndexAtom } from './atoms';
 
 export function useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom, totalPapers) {
   const [angle, setAngle] = useAtom(flipAngleAtom);
   const [flipping, setFlipping] = useAtom(flippingAtom);
   const [direction] = useAtom(flipDirectionAtom);
   const [, setTopIndex] = useAtom(topIndexAtom);
+
+  // Disable clicks for other pages while flipping in progress
+  const [, setInteractionLocked] = useAtom(stackInteractionLockedAtom);
+
 
 
   useFrame((_, delta) => {
@@ -20,6 +24,9 @@ export function useFlipAnimation(flipAngleAtom, flippingAtom, flipDirectionAtom,
       setFlipping(false);
       setAngle(0)
       setTopIndex((i) => (i + 1) % totalPapers);
+
+      // Disable clicks for other pages while flipping in progress
+      setInteractionLocked(false);
     } else {
       setAngle(nextAngle);
     }

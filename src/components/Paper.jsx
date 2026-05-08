@@ -11,7 +11,7 @@ import {
 } from 'three';
 import { handleClick } from '../lib/pageFlipController';
 import { useFlipAnimation } from '../lib/useFlipAnimation';
-import { flipAngleFamily, flippingFamily, flipDirectionFamily, pageBasePositionsFamily } from '../lib/atoms';
+import { flipAngleFamily, flippingFamily, flipDirectionFamily, pageBasePositionsFamily, stackInteractionLockedAtom } from '../lib/atoms';
 import { getDefaultStore, useAtomValue, useSetAtom } from 'jotai';
 import { useFrame } from '@react-three/fiber';
 import { applyFlipDeformation } from '../lib/applyFlipDeformation';
@@ -48,6 +48,8 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
 
   const setPageBasePositions = useSetAtom(pageBasePositionsAtom);
 
+  const isInteractionLocked = useAtomValue(stackInteractionLockedAtom);
+  const setInteractionLocked = useSetAtom(stackInteractionLockedAtom);
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -157,7 +159,12 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       geometry={mesh.geometry}
       material={mesh.material}
       onClick={(e) => {
-        e.stopPropagation()        
+        e.stopPropagation()    
+
+        // Disable clicks for other pages while flipping in progress
+        if (isInteractionLocked) return;
+        setInteractionLocked(true);    
+        
         handleClick(flipAngleAtom, flippingAtom, flipDirectionAtom, store);
         props.onStackClick()
 

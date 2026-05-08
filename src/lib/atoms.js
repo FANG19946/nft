@@ -59,3 +59,6 @@ export const debugFlipAtoms = () => {
   console.log('flipDirectionAtoms:', flipDirectionAtoms);
 //   console.log('pageBasePositionsAtoms:', pageBasePositionsAtoms);
 }
+
+// Global Paperstack atom
+export const stackInteractionLockedAtom = atom(false);
