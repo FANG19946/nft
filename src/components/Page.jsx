@@ -88,8 +88,8 @@ const pageMaterials = [
 export default function Page({ number, front, back, page, opened, bookClosed, ...props }) {
 
     const [picture, picture2] = useTexture([
-        `/textures/${front}.jpg`,
-        `/textures/${back}.jpg`
+        `/textures/${front}.png`,
+        `/textures/${back}.png`
     ]);
     picture.colorSpace = picture2.colorSpace = SRGBColorSpace
     const turnedAt = useRef(0);

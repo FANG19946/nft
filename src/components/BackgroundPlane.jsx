@@ -28,7 +28,7 @@ export default function BackgroundPlane() {
   return (
     <Plane
       args={[size.width, size.height]}
-      position={inFocus ? [0, 0, 0.5] : [0, 0, -10]} // Behind everything
+      position={inFocus ? [0, 0, 0.1] : [0, 0, -10]} // Behind everything
       onClick={() => {
 
         setFocus(false)

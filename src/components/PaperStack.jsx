@@ -9,7 +9,7 @@ import { useFrame } from '@react-three/fiber';
 const ROTATION_RANGE = 5;
 const Z_OFFSET = 0.2;
 
-export default function PaperStack({ pages = [], position = [0, 0, 0] }) {
+export default function PaperStack({ pages = [], position = [0, 0, 0], ...props}) {
     //pages = [{
     // front:
     // back:
@@ -41,7 +41,7 @@ export default function PaperStack({ pages = [], position = [0, 0, 0] }) {
     };
 
     return (
-        <group position={position}>
+        <group position={position} {...props}>
             {papers.map((paper, index) => (
                 <Paper
                     key={paper.id}
@@ -51,6 +51,7 @@ export default function PaperStack({ pages = [], position = [0, 0, 0] }) {
                     rotationOffset={paper.rotationOffset}
                     index={index}
                     topPaperId={topPaperId}
+                    isTopPaper={paper.id === topPaperId}
                     position={[0, 0, -index * Z_OFFSET]}
                     topFlipAngle={topPageFlipAngle}
                     onStackClick={handleStackClick}

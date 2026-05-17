@@ -31,7 +31,7 @@ const pageMaterials = new Array(4).fill(
   new MeshStandardMaterial({ color: whiteColor })
 );
 
-export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, rotationOffset = 0, index, topPaperId, topFlipAngle, ...props }) {
+export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_HEIGHT = 1.81, rotationOffset = 0, index, isTopPaper, topPaperId, topFlipAngle, ...props }) {
 
   // Unique ID per instance
   const paperId = props.pageId;
@@ -83,6 +83,7 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
       PAGE_SEGMENTS,
       1
     );
+    geometry.translate(-PAGE_WIDTH / 2, 0, 0);
 
 
     const materials = [
@@ -163,8 +164,10 @@ export default function Paper({ front, back, children, PAGE_WIDTH = 1.28, PAGE_H
 
         // Disable clicks for other pages while flipping in progress
         if (isInteractionLocked) return;
+        // Only allow clicks on top paper
+        if (!isTopPaper) return;
         setInteractionLocked(true);    
-        
+
         handleClick(flipAngleAtom, flippingAtom, flipDirectionAtom, store);
         props.onStackClick()
 

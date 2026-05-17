@@ -10,8 +10,8 @@ import { useThree } from '@react-three/fiber'
 
 //This part was causing the could not find errors
 pages.forEach((page) => {
-    useTexture.preload(`/textures/${page.front}.jpg`);
-    useTexture.preload(`/textures/${page.back}.jpg`);
+    useTexture.preload(`/textures/${page.front}.png`);
+    useTexture.preload(`/textures/${page.back}.png`);
 
 })
 

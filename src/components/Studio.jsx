@@ -12,13 +12,45 @@ import { inFocusAtom } from '../lib/atoms'
 import { useAtom } from 'jotai'
 import PaperStack from './PaperStack'
 
-
 export default function Studio() {
 
+    // PAGE WIDTH and HEIGHT has been hardcoded here and should ideally be imported everywhere from a constants file
     const PAGE_WIDTH = 1.28;
+    const PAGE_HEIGHT = 1.81;
     const { viewport } = useThree()
-    const left = -viewport.width / 2
+    const left = -viewport.width * 0.3
+    const right = -left
     const [inFocus, setInFocus] = useAtom(inFocusAtom)
+    const sceneScale = Math.min(viewport.width, viewport.height);
+
+    const scale = sceneScale * 0.4;
+
+    // Checking viewport size 
+    const isMobile = viewport.width < 8;
+    
+    const OBJECT_WIDTH = PAGE_WIDTH * scale;
+    const OBJECT_HEIGHT = PAGE_HEIGHT * scale;
+
+    const GAP = 0.5;
+
+    const totalWidth = 2 * OBJECT_WIDTH + GAP;
+
+    const desktopBookPosition = [-totalWidth / 2, 0, 0];
+    const desktopStackPosition = [totalWidth / 2, 0, 0];
+
+    const mobileBookPosition = [-OBJECT_WIDTH/2, 0, 0];
+    const mobileStackPosition = [OBJECT_WIDTH/2, -OBJECT_HEIGHT-1, 0];
+    
+    const bookPosition = isMobile
+        ? mobileBookPosition
+        : desktopBookPosition;
+
+    const stackPosition = isMobile
+        ? mobileStackPosition
+        : desktopStackPosition;
+    
+
+    
     const pages = [
         {
             front: "Roadmap",
@@ -40,13 +72,14 @@ export default function Studio() {
             <BackgroundPlane />
             {/* <CameraRig /> */}
             <Book
-                position={inFocus ? [0, 0, 1] : [left, 0, 0]}
+                scale={scale}
+                position={inFocus ? [0, 0, 0.3] : bookPosition}
             />
             {/* <Paper front="Roadmap" back="Empty Page" position={[-1, 0, 0]} />
             <Paper front="Sticky note" back="Empty Page" position={[-1, 0, -0.2]} /> */}
 
             {/* <Paper front="Roadmap" back="Empty Page" position={[0,1,0]}/> */}
-            <PaperStack pages={pages} />
+            <PaperStack pages={pages} scale={scale} position={stackPosition} />
             {/* <PaperStack pages={pages} position={[1,2,3]} /> */}
 
 
