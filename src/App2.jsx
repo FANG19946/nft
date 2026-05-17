@@ -1,10 +1,13 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
-
 import WallScene from './components/WallScene'
+import { loadGraffitiFonts } from './lib/loadFonts'
 
 export default function App2() {
+    
+    useEffect(() => {
+        loadGraffitiFonts()
+    }, [])
 
     return (
         <div className='w-screen h-screen overflow-hidden'>

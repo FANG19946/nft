@@ -9,9 +9,9 @@ export const fakePosts = [
     },
     {
         id: 2,
-        text: 'i really want to know what I am doing here',
+        text: 'Surprise MF',
         position: [0, 3, 0.01],
-        rotation: 0,
+        rotation: 0.2,
         color: '#ff00ff',
         font: 'Permanent Marker',
     }

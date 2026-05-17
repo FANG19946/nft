@@ -23,7 +23,7 @@ const WallPlane = forwardRef((props, ref) => {
             {/* using boxGeometry instead of planeGeometry */}
             {/* decals work much better on geometry with thickness */}
 
-            <boxGeometry args={[16, 9, 0.3]} />
+            <boxGeometry args={[25, 16, 0.3]} />
 
             <meshStandardMaterial
                 map={colorMap}
