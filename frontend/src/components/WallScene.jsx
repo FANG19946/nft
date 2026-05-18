@@ -4,10 +4,26 @@ import { OrbitControls } from '@react-three/drei'
 
 import WallPlane from './WallPlane'
 import GraffitiLayer from './GraffitiLayer'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 export default function WallScene() {
 
     const wallRef = useRef()
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+
+        fetch('http://localhost:5000/api/posts')
+            .then(res => res.json())
+            .then(data => {
+
+                console.log(data)
+
+                setPosts(data)
+            })
+
+    }, [])
 
     return (
         <>
@@ -36,7 +52,7 @@ export default function WallScene() {
             <WallPlane ref={wallRef} />
 
             {/* GRAFFITI (internally waits for matrix) */}
-            <GraffitiLayer wallMesh={wallRef} />
+            <GraffitiLayer wallMesh={wallRef} posts = {posts}/>
 
             {/* CONTROLS (MUST ALWAYS BE MOUNTED) */}
             <OrbitControls
