@@ -6,22 +6,28 @@ import WallPlane from './WallPlane'
 import GraffitiLayer from './GraffitiLayer'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { fetchPosts } from '../lib/fetchAndCreate'
+import CreatePostButton from './CreatePostButton'
+import CreatePostPanel from './CreatePostPanel'
+
+
 
 export default function WallScene() {
 
     const wallRef = useRef()
     const [posts, setPosts] = useState([])
+    const [open, setOpen] = useState(false)
+    async function loadPosts() {
 
+        const data = await fetchPosts()
+
+        setPosts(data)
+    }
     useEffect(() => {
 
-        fetch('http://localhost:5000/api/posts')
-            .then(res => res.json())
-            .then(data => {
 
-                console.log(data)
 
-                setPosts(data)
-            })
+        loadPosts()
 
     }, [])
 
@@ -52,7 +58,7 @@ export default function WallScene() {
             <WallPlane ref={wallRef} />
 
             {/* GRAFFITI (internally waits for matrix) */}
-            <GraffitiLayer wallMesh={wallRef} posts = {posts}/>
+            <GraffitiLayer wallMesh={wallRef} posts={posts} />
 
             {/* CONTROLS (MUST ALWAYS BE MOUNTED) */}
             <OrbitControls
@@ -60,6 +66,7 @@ export default function WallScene() {
                 dampingFactor={0.08}
                 enablePan={false}
             />
+           
 
         </>
     )

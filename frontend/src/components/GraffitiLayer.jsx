@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import GraffitiDecal from './GraffitiDecal'
-// import { fakePosts } from '../../data/fakePosts'
+
 
 export default function GraffitiLayer({ wallMesh, posts }) {
 
@@ -26,11 +26,13 @@ export default function GraffitiLayer({ wallMesh, posts }) {
     return (
         <>
             {posts.map((post) => (
+
                 <GraffitiDecal
-                    key={post.id}
+                    key={post._id}
                     wallMesh={wallMesh.current}
                     {...post}
                 />
+
             ))}
         </>
     )

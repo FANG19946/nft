@@ -1,0 +1,15 @@
+{
+  "name": "nft-frontend",
+  "version": "1.0.0",
+  "description": "This is a modular, full-screen interactive NFT frontend built using: - **React** (via Vite) - **React Three Fiber** (Three.js for declarative 3D) - **Tailwind CSS** (for styling) - **Framer Motion** (for animations) - **Jotai + Leva** (for state and debugging controls)",
+  "main": "index.js",
+  "scripts": {
+  "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\""
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
