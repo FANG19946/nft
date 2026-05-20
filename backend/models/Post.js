@@ -10,7 +10,11 @@ const postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    expiresAt: Date
+    expiresAt: Date,
+    comments: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comment',
+    }]
 })
 
 export default mongoose.model('Post', postSchema)
